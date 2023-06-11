@@ -21,7 +21,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     return session;
   };
 
-  if (!event.url.pathname.startsWith('/login')) {
+  if (!event.url.pathname.startsWith('/login') && !event.url.pathname.startsWith('/signup')) {
     const session = await event.locals.getSession();
     if (!session) {
       // the user is not signed in

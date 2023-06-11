@@ -2,7 +2,7 @@
   import { page } from '$app/stores';
   import logo from '$lib/images/svelte-logo.svg';
 
-  export let showLogoutButton = false;
+  export let isLoggedIn = false;
 </script>
 
 <header>
@@ -20,8 +20,8 @@
       <li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
         <a href="/">Home</a>
       </li>
-      <li aria-current={$page.url.pathname.startsWith('/sverdle') ? 'page' : undefined}>
-        <a href="/sverdle">Sverdle</a>
+      <li aria-current={$page.url.pathname.startsWith('/workout') ? 'page' : undefined}>
+        <a href="/workout ">Workouts</a>
       </li>
       <li aria-current={$page.url.pathname.startsWith('/session') ? 'page' : undefined}>
         <a href="/session">Session</a>
@@ -33,7 +33,7 @@
   </nav>
 
   <div class="corner">
-    {#if showLogoutButton}
+    {#if isLoggedIn}
       <form method="POST" action="/login?/signout">
         <button>Logout</button>
       </form>

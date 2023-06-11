@@ -16,6 +16,11 @@
   color: var(--color-text);
 }
 
+html, body {
+  margin: 0 auto;
+  height: 100vh;
+}
+
 h1,
 h2,
 p {

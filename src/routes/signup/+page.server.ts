@@ -3,16 +3,21 @@ import { fail, redirect } from '@sveltejs/kit';
 import { AuthApiError } from '@supabase/supabase-js';
 
 export const actions: Actions = {
-  signIn: async ({ request, locals: { supabase } }) => {
+  signup: async ({ request, locals: { supabase } }) => {
     const formData = await request.formData();
 
     const email = formData.get('email') as string;
+    const name = formData.get('name') as string;
     const password = formData.get('password') as string;
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signUp({
       email,
       password
     });
+
+    const { error: userError } = await supabase
+      .from('users')
+      .insert({ name, email });
 
     if (error) {
       if (error instanceof AuthApiError && error.status === 400) {
@@ -31,7 +36,7 @@ export const actions: Actions = {
       });
     }
 
-    throw redirect(303, '/workout');
+    throw redirect(303, '/session');
   },
 
   signout: async ({ locals: { supabase } }) => {

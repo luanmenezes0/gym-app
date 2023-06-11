@@ -6,17 +6,29 @@
 
   export let data: LayoutData;
 
-  const showLogoutButton = Boolean(data.session);
+  const isLoggedIn = Boolean(data.session);
 </script>
 
 <div class="app">
-  <Header {showLogoutButton} />
+  {#if isLoggedIn}
+    <Header {isLoggedIn} />
+  {/if}
 
   <main>
     <slot />
   </main>
 
-  <footer>
-    <p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
-  </footer>
+  {#if isLoggedIn}
+    <footer>
+      <p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+    </footer>
+  {/if}
 </div>
+
+<style>
+  .app {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100svh;
+  }
+</style>
